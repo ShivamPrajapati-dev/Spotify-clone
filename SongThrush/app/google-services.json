@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "977669378790",
+    "firebase_url": "https://song-thrush.firebaseio.com",
+    "project_id": "song-thrush",
+    "storage_bucket": "song-thrush.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977669378790:android:0a5f062e2a5becf38ba127",
+        "android_client_info": {
+          "package_name": "com.example.songthrush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977669378790-n5ntdprfvsidejuv2je8019hgr0s0mts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpSJH6wYQFXixvq45yblZELVTxN-bLR-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977669378790-n5ntdprfvsidejuv2je8019hgr0s0mts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
