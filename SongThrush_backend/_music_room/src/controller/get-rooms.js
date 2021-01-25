@@ -2,10 +2,10 @@ module.exports = function makeGetRooms({readRoom}){
    
     return async function getRooms(httpRequest){
         
-        const info = httpRequest.body;
+        const id = httpRequest.id;
 
         try {
-            const readed = await readRoom(info);
+            const readed = await readRoom(id);
         
             return {
                 headers: {

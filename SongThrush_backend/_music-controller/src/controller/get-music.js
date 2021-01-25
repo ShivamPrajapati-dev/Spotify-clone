@@ -1,11 +1,11 @@
-module.exports = function makeGetSubscription({readSubscriptions}){
+module.exports = function makeGetMusic({readMusic}){
    
-    return async function getSubscription(httpRequest){
+    return async function getMusic(httpRequest){
         
         const id = httpRequest.id;
 
         try {
-            const readed = await readSubscriptions(id);
+            const readed = await readMusic(id);
         
             return {
                 headers: {

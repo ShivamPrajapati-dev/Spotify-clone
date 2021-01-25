@@ -1,18 +1,18 @@
-module.exports = function makeGetSubscription({readSubscriptions}){
+module.exports = function makePostMusic({addMusic}){
    
-    return async function getSubscription(httpRequest){
+    return async function postMusic(httpRequest){
         
-        const id = httpRequest.id;
+        const info = httpRequest.body;
 
         try {
-            const readed = await readSubscriptions(id);
+            const posted = await addMusic(info);
         
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                statusCode: 200,
-                body: readed
+                statusCode: 201,
+                body: posted
             }            
         
         } catch (e) {
