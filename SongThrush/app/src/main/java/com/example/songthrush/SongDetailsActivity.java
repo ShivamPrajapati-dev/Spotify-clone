@@ -22,7 +22,7 @@ public class SongDetailsActivity extends AppCompatActivity {
 
     int x = 0;
     RecyclerView recyclerView;
-    MaterialCardView cardView,artistCardView;
+    MaterialCardView cardView,artistCardView, mySpaceCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class SongDetailsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         cardView = findViewById(R.id.new_release);
         artistCardView = findViewById(R.id.artists);
+        mySpaceCardView = findViewById(R.id.my_space);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         String token = getSharedPreferences("spotify", MODE_PRIVATE).getString("token", null);
         assert token != null;
@@ -73,6 +74,13 @@ public class SongDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SongDetailsActivity.this, MainActivity.class));
+
+            }
+        });
+        mySpaceCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SongDetailsActivity.this, MySpaceActivity.class));
 
             }
         });

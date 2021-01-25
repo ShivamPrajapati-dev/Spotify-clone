@@ -1,7 +1,8 @@
 module.exports = function buildMakeRoom(){
     return function makeRoom({
         owner,
-        room_id
+        room_id,
+        desc
     }){
         if(!owner){
             throw new Error('room qwner is required');
@@ -13,7 +14,8 @@ module.exports = function buildMakeRoom(){
 
         return Object.freeze({
             getOwner: () => owner,
-            getRoomId: () => room_id
+            getRoomId: () => room_id,
+            getDesc: () => desc
         });
     }
 }

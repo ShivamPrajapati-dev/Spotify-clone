@@ -16,16 +16,16 @@ const {
 
 const makeExpressCallback = require('./express-callback');
 
-app.post('/_music/create', makeExpressCallback(postMusic));
-app.post('/_music/read', makeExpressCallback(getMusic));
+app.post('/create', makeExpressCallback(postMusic));
+app.post('/read', makeExpressCallback(getMusic));
 
 mongoose
     .connect(process.env.MONGO_URL,{
         useNewUrlParser:true,
         useUnifiedTopology:true
     }).then((result)=>{
-        app.listen(3002,()=>{
-            console.log('music service listening on port 3002');
+        app.listen(3001,()=>{
+            console.log('music service listening on port 3001');
         })
     }).catch(e=>{
         console.log(e.message);

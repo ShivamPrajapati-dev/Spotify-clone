@@ -4,6 +4,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     tools:context=".MySpaceActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="#000"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryDark"
+                    android:fitsSystemWindows="true"
+                    android:gravity="left"
+                    android:padding="15dp"
+                    android:text="My Space!!"
+                    android:textAllCaps="true"
+                    android:textColor="#D3FFFFFF"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_collapseMode="parallax" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My music rooms"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="#fff"
+                    android:id="@+id/rooms_text"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:padding="5dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/rooms_text"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="horizontal"
+                    android:id="@+id/myRoomsRecyclerView"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Subscribed rooms"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@id/myRoomsRecyclerView"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="#fff"
+                    android:id="@+id/subs_rooms"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:padding="5dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/subs_rooms"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="horizontal"
+                    android:id="@+id/mySubsRoomsRecyclerView"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Public music rooms"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="#fff"
+                    android:layout_below="@id/mySubsRoomsRecyclerView"
+                    android:id="@+id/public_rooms"
+                    android:textSize="18sp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:padding="5dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/public_rooms"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="horizontal"
+                    android:id="@+id/publicRoomsRecyclerView"/>
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:backgroundTint="#fff"
+            android:text="Create Room" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

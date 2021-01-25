@@ -16,8 +16,8 @@ const {
 
 const makeExpressCallback = require('./express-callback');
 
-app.post('/_room/create', makeExpressCallback(postRoom));
-app.post('/_room/read', makeExpressCallback(getRooms));
+app.post('/create', makeExpressCallback(postRoom));
+app.post('/read', makeExpressCallback(getRooms));
 
 mongoose
     .connect(process.env.MONGO_URL,{

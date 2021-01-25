@@ -1,7 +1,11 @@
 package com.example.songthrush;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -27,5 +31,11 @@ public interface APIInterface {
 
     @GET("/v1/artists/{id}/top-tracks?market=IN")
     Call<Object> getArtistTopTrack(@Path(value = "id", encoded = true)String id);
+
+    @POST("/_room/create")
+    Call<Object> createRoom(@Body HashMap<String,String> data);
+
+    @POST("/_room/read")
+    Call<Object> getRoom(@Body HashMap<String,String> data);
 
 }

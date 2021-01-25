@@ -7,10 +7,12 @@ module.exports = function makeCreateRoom({Room}){
         
         const new_room = new Room({
             owner:room.getOwner(),
-            room_id:room.getRoomId()
+            room_id:room.getRoomId(),
+            desc:room.getDesc()
         });
 
         const saved = await new_room.save();
+        console.log(saved);
         return saved;
     }
 }
