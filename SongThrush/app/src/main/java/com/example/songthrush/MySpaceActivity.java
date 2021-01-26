@@ -1,7 +1,6 @@
 package com.example.songthrush;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +25,10 @@ import retrofit2.Response;
 public class MySpaceActivity extends AppCompatActivity {
     ExtendedFloatingActionButton fab;
     BottomSheet bottomSheet;
-    RecyclerView myRoomsRV,subsRV,publicRoomRV;
-    List<Rooms> list;
-    int x=0;
+    RecyclerView myRoomsRV, subsRV, publicRoomRV;
+    List<Rooms> list, listall;
+    int x = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +41,7 @@ public class MySpaceActivity extends AppCompatActivity {
         subsRV.setHasFixedSize(true);
         publicRoomRV.setHasFixedSize(true);
         list = new ArrayList<>();
+        listall = new ArrayList<>();
 
         myRoomsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         subsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -56,48 +56,90 @@ public class MySpaceActivity extends AppCompatActivity {
             }
         });
         RetrofitX retrofitX = new RetrofitX();
-        HashMap<String,String> map = new HashMap<>();
-        map.put("id","qqqq");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", "qqqq");
+
         Call<Object> call = retrofitX.init().getRoom(map);
+        Call<Object> callAll = retrofitX.init().getAllRoom(map);
 
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
                     String json = new Gson().toJson(response.body());
                     try {
                         JSONArray array = new JSONArray(json);
-                        for (int i=0;i<array.length();i++){
+                        for (int i = 0; i < array.length(); i++) {
                             String color = array.getJSONObject(i).getString("color");
                             String name = array.getJSONObject(i).getString("room_id");
                             String desc = array.getJSONObject(i).getString("desc");
-                            Rooms rooms = new Rooms(name,desc,color);
+                            Rooms rooms = new Rooms(name, desc, color);
                             list.add(rooms);
-                            inflateRecyclerView(list,array.length());
+                            inflateRecyclerView(list, array.length(), 0);
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                }else{
-                    Toast.makeText(MySpaceActivity.this,"Something went wrong",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MySpaceActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
                 }
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Toast.makeText(MySpaceActivity.this,t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(MySpaceActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        callAll.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.code() == 200) {
+                    String json = new Gson().toJson(response.body());
+                    try {
+                        JSONArray array = new JSONArray(json);
+                        for (int i = 0; i < array.length(); i++) {
+                            String color = array.getJSONObject(i).getString("color");
+                            String name = array.getJSONObject(i).getString("room_id");
+                            String desc = array.getJSONObject(i).getString("desc");
+                            Rooms rooms = new Rooms(name, desc, color);
+                            listall.add(rooms);
+                            inflateRecyclerView(listall, array.length(), 1);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(MySpaceActivity.this, new Gson().toJson(response.errorBody()), Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(MySpaceActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
 
     }
-    private void inflateRecyclerView(List<Rooms> list, int length) {
+
+    private void inflateRecyclerView(List<Rooms> list, int length, int type) {
         x++;
-        if(x==length){
-            RoomsAdapter roomsAdapter = new RoomsAdapter(list);
-            myRoomsRV.setAdapter(roomsAdapter);
+        if (x == length) {
+
+            if (type == 0) {
+                RoomsAdapter roomsAdapter = new RoomsAdapter(list);
+                myRoomsRV.setAdapter(roomsAdapter);
+            } else {
+                PublicRoomAdapter publicRoomAdapter = new PublicRoomAdapter(list);
+                publicRoomRV.setAdapter(publicRoomAdapter);
+            }
         }
 
     }

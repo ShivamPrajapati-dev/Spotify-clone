@@ -38,4 +38,9 @@ public interface APIInterface {
     @POST("/_room/read")
     Call<Object> getRoom(@Body HashMap<String,String> data);
 
+    @POST("/_room/readall")
+    Call<Object> getAllRoom(@Body HashMap<String,String> data);
+
+    @POST("/_subscribe/create")
+    Call<Object> createSubscription(@Body HashMap<String,String> data);
 }

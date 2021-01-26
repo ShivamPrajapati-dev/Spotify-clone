@@ -11,13 +11,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 const {
     postRoom,
-    getRooms
+    getRooms,
+    getAllRooms
 } = require('./controller')
 
 const makeExpressCallback = require('./express-callback');
 
 app.post('/create', makeExpressCallback(postRoom));
 app.post('/read', makeExpressCallback(getRooms));
+app.post('/readall',makeExpressCallback(getAllRooms));
 
 mongoose
     .connect(process.env.MONGO_URL,{

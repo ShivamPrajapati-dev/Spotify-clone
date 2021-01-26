@@ -5,5 +5,7 @@ const schema = mongoose.Schema({
     room_id:{type:String}
 });
 
+schema.index({user_id:1,room_id:1},{unique:true});
+
 const model = mongoose.model('subscribe',schema);
 module.exports = model;
