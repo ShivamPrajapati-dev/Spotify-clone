@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const color = require('randomcolor');
+
 const schema = mongoose.Schema({
     owner:{
         type:String,
@@ -16,7 +16,7 @@ const schema = mongoose.Schema({
 
     color:{
         type:String,
-        default:color()
+       
     }
 
 },{

@@ -6,6 +6,7 @@ module.exports = function makeReadSubscriptions({Subscribe}){
         }
 
         const data = await Subscribe.find({user_id});
+        console.log(data);
         return data;
 
     }

@@ -1,7 +1,9 @@
 module.exports = function buildMakeSubscribe(){
     return function makeSubscribe({
         user_id,
-        room_id
+        room_id,
+        color,
+        desc
     }){
         if(!user_id){
             throw new Error('Must provide user id');
@@ -13,7 +15,9 @@ module.exports = function buildMakeSubscribe(){
 
         return Object.freeze({
             getUserId: () => user_id,
-            getRoomId: () => room_id 
+            getRoomId: () => room_id,
+            getColor: () => color,
+            getDesc: () =>desc
         });
         
     }

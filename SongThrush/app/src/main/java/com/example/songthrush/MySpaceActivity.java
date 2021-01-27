@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
@@ -26,8 +27,9 @@ public class MySpaceActivity extends AppCompatActivity {
     ExtendedFloatingActionButton fab;
     BottomSheet bottomSheet;
     RecyclerView myRoomsRV, subsRV, publicRoomRV;
-    List<Rooms> list, listall;
-    int x = 0;
+    SwipeRefreshLayout swipeRefreshLayout;
+    List<Rooms> list, listall, listSubs;
+    int x = 0, y = 0, z = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,28 @@ public class MySpaceActivity extends AppCompatActivity {
         myRoomsRV = findViewById(R.id.myRoomsRecyclerView);
         subsRV = findViewById(R.id.mySubsRoomsRecyclerView);
         publicRoomRV = findViewById(R.id.publicRoomsRecyclerView);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+        init();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                x=0;y=0;z=0;
+                init();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+    }
+
+    private void init() {
         myRoomsRV.setHasFixedSize(true);
         subsRV.setHasFixedSize(true);
         publicRoomRV.setHasFixedSize(true);
+
         list = new ArrayList<>();
         listall = new ArrayList<>();
+        listSubs = new ArrayList<>();
 
         myRoomsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         subsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -61,6 +80,7 @@ public class MySpaceActivity extends AppCompatActivity {
 
         Call<Object> call = retrofitX.init().getRoom(map);
         Call<Object> callAll = retrofitX.init().getAllRoom(map);
+        Call<Object> callSubs = retrofitX.init().readSubscription(map);
 
         call.enqueue(new Callback<Object>() {
             @Override
@@ -75,7 +95,7 @@ public class MySpaceActivity extends AppCompatActivity {
                             String desc = array.getJSONObject(i).getString("desc");
                             Rooms rooms = new Rooms(name, desc, color);
                             list.add(rooms);
-                            inflateRecyclerView(list, array.length(), 0);
+                            inflateMyRoomsRecyclerView(list, array.length());
                         }
 
                     } catch (JSONException e) {
@@ -107,7 +127,7 @@ public class MySpaceActivity extends AppCompatActivity {
                             String desc = array.getJSONObject(i).getString("desc");
                             Rooms rooms = new Rooms(name, desc, color);
                             listall.add(rooms);
-                            inflateRecyclerView(listall, array.length(), 1);
+                            inflatePubRoomsRecyclerView(listall, array.length());
                         }
 
                     } catch (JSONException e) {
@@ -127,19 +147,70 @@ public class MySpaceActivity extends AppCompatActivity {
             }
         });
 
+        callSubs.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.code() == 200) {
+                    String json = new Gson().toJson(response.body());
+                    try {
+                        JSONArray array = new JSONArray(json);
+                        for (int i = 0; i < array.length(); i++) {
+                            String color = array.getJSONObject(i).getString("color");
+                            String name = array.getJSONObject(i).getString("room_id");
+                            String desc = array.getJSONObject(i).getString("desc");
+                            Rooms rooms = new Rooms(name, desc, color);
+                            listSubs.add(rooms);
+                            inflateSubsRoomRecyclerView(listSubs, array.length());
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Toast.makeText(MySpaceActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(MySpaceActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
-    private void inflateRecyclerView(List<Rooms> list, int length, int type) {
+    private void inflateMyRoomsRecyclerView(List<Rooms> list, int length) {
         x++;
         if (x == length) {
 
-            if (type == 0) {
-                RoomsAdapter roomsAdapter = new RoomsAdapter(list);
-                myRoomsRV.setAdapter(roomsAdapter);
-            } else {
-                PublicRoomAdapter publicRoomAdapter = new PublicRoomAdapter(list);
-                publicRoomRV.setAdapter(publicRoomAdapter);
-            }
+            RoomsAdapter roomsAdapter = new RoomsAdapter(list);
+            myRoomsRV.setAdapter(roomsAdapter);
+
+        }
+
+    }
+
+    private void inflatePubRoomsRecyclerView(List<Rooms> list, int length) {
+        y++;
+        if (y == length) {
+
+            PublicRoomAdapter publicRoomAdapter = new PublicRoomAdapter(list);
+            publicRoomRV.setAdapter(publicRoomAdapter);
+
+        }
+
+    }
+
+    private void inflateSubsRoomRecyclerView(List<Rooms> list, int length) {
+        z++;
+        if (z == length) {
+
+
+            RoomsAdapter roomsAdapter = new RoomsAdapter(list);
+            subsRV.setAdapter(roomsAdapter);
+
         }
 
     }

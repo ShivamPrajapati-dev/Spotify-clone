@@ -1,5 +1,5 @@
 const {makeRoom} = require('../room');
-
+const color = require('randomcolor');
 module.exports = function makeCreateRoom({Room}){
     return async function createRoom(info){
         
@@ -8,7 +8,8 @@ module.exports = function makeCreateRoom({Room}){
         const new_room = new Room({
             owner:room.getOwner(),
             room_id:room.getRoomId(),
-            desc:room.getDesc()
+            desc:room.getDesc(),
+            color:color()
         });
 
         const saved = await new_room.save();

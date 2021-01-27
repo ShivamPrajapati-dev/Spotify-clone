@@ -43,4 +43,7 @@ public interface APIInterface {
 
     @POST("/_subscribe/create")
     Call<Object> createSubscription(@Body HashMap<String,String> data);
+
+    @POST("/_subscribe/read")
+    Call<Object> readSubscription(@Body HashMap<String,String> data);
 }

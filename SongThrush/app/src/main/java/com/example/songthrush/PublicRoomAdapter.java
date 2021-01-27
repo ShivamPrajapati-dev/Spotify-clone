@@ -53,6 +53,8 @@ public class PublicRoomAdapter extends RecyclerView.Adapter<PublicRoomAdapter.Vi
         map = new HashMap<>();
         map.put("user_id", "qqqq");
         map.put("room_id", list.get(position).getName());
+        map.put("color",list.get(position).getColor());
+        map.put("desc",list.get(position).getDesc());
 
         holder.join.setOnClickListener(new View.OnClickListener() {
             @Override

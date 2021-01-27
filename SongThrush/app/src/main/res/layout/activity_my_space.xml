@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -43,77 +44,90 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-            <RelativeLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="My music rooms"
-                    android:layout_marginStart="10dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="#fff"
-                    android:id="@+id/rooms_text"
-                    android:textSize="18sp"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:padding="5dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/rooms_text"
-                    android:layout_marginTop="5dp"
-                    android:scrollbars="horizontal"
-                    android:id="@+id/myRoomsRecyclerView"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Subscribed rooms"
-                    android:layout_marginStart="10dp"
-                    android:layout_below="@id/myRoomsRecyclerView"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="#fff"
-                    android:id="@+id/subs_rooms"
-                    android:textSize="18sp"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:padding="5dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/subs_rooms"
-                    android:layout_marginTop="5dp"
-                    android:scrollbars="horizontal"
-                    android:id="@+id/mySubsRoomsRecyclerView"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Public music rooms"
-                    android:layout_marginStart="10dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:textColor="#fff"
-                    android:layout_below="@id/mySubsRoomsRecyclerView"
-                    android:id="@+id/public_rooms"
-                    android:textSize="18sp"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:padding="5dp" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/public_rooms"
-                    android:layout_marginTop="5dp"
-                    android:scrollbars="horizontal"
-                    android:id="@+id/publicRoomsRecyclerView"/>
-            </RelativeLayout>
+                    android:layout_height="match_parent">
 
-        </androidx.core.widget.NestedScrollView>
+                    <TextView
+                        android:id="@+id/rooms_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:padding="5dp"
+                        android:text="My music rooms"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/myRoomsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/rooms_text"
+                        android:layout_marginTop="5dp"
+                        android:scrollbars="horizontal" />
+
+                    <TextView
+                        android:id="@+id/subs_rooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/myRoomsRecyclerView"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:padding="5dp"
+                        android:text="Subscribed rooms"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/mySubsRoomsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/subs_rooms"
+                        android:layout_marginTop="5dp"
+                        android:scrollbars="horizontal" />
+
+                    <TextView
+                        android:id="@+id/public_rooms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/mySubsRoomsRecyclerView"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:padding="5dp"
+                        android:text="Public music rooms"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/publicRoomsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/public_rooms"
+                        android:layout_marginTop="5dp"
+                        android:scrollbars="horizontal" />
+                </RelativeLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab"
