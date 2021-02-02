@@ -5,6 +5,7 @@ module.exports = function makeReadRoom({Room}){
             throw new Error('must provide owner')
         }
         const data = await Room.find({owner});
+        console.log(data);
         return data;
     }
 }

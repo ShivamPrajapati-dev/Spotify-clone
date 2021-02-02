@@ -1,6 +1,7 @@
 package com.example.songthrush;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -44,6 +45,17 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         drawable.setColorFilter(Color.parseColor(list.get(position).getColor()), PorterDuff.Mode.SRC_ATOP);
         holder.draweeView.setImageDrawable(drawable);
         holder.initials.setText(String.valueOf(list.get(position).getName().charAt(0)));
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RoomSongActivity.class);
+                intent.putExtra("initials",String.valueOf(list.get(position).getName().charAt(0)));
+                intent.putExtra("color", list.get(position).getColor());
+                intent.putExtra("room_id",list.get(position).getName());
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

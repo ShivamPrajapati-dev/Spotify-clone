@@ -17,6 +17,9 @@ public interface APIInterface {
     @GET("/v1/artists/{id}")
     Call<Artist> getArtist(@Path(value = "id", encoded = true)String id);
 
+    @GET("/v1/tracks/{id}")
+    Call<Artist> getTrack(@Path(value = "id", encoded = true)String id);
+
     @GET("/v1/browse/categories")
     Call<Category> getCategories(@Query("locale") String locale);
 
@@ -46,4 +49,10 @@ public interface APIInterface {
 
     @POST("/_subscribe/read")
     Call<Object> readSubscription(@Body HashMap<String,String> data);
+
+    @POST("/_music/read")
+    Call<Object> readMusic(@Body HashMap<String,String> data);
+
+    @POST("/_music/create")
+    Call<Object> addMusic(@Body HashMap<String,String> data);
 }

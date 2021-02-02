@@ -5,6 +5,13 @@ const schema = mongoose.Schema({
         required:true
     },
     room_id:{
+        type:String,
+        required:true
+    },
+    img:{
+        type:String
+    },
+    artist:{
         type:String
     }
 })

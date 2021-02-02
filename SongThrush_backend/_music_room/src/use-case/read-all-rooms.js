@@ -9,7 +9,6 @@ module.exports = function makeReadAllRoom({Room,axios}){
         });
         const arr = val.data.map((x)=>x.room_id);
         const data = await Room.find({owner:{$ne:id},room_id:{$nin:arr}});
-        console.log(data);
         return data;
     }
 }

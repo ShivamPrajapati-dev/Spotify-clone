@@ -39,12 +39,24 @@ public class MySpaceActivity extends AppCompatActivity {
         myRoomsRV = findViewById(R.id.myRoomsRecyclerView);
         subsRV = findViewById(R.id.mySubsRoomsRecyclerView);
         publicRoomRV = findViewById(R.id.publicRoomsRecyclerView);
+
+        myRoomsRV.setHasFixedSize(true);
+        subsRV.setHasFixedSize(true);
+        publicRoomRV.setHasFixedSize(true);
+
+        myRoomsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        subsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        publicRoomRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        list = new ArrayList<>();
+        listall = new ArrayList<>();
+        listSubs = new ArrayList<>();
+
         swipeRefreshLayout = findViewById(R.id.swipe);
         init();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                x=0;y=0;z=0;
+
                 init();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -54,17 +66,13 @@ public class MySpaceActivity extends AppCompatActivity {
     }
 
     private void init() {
-        myRoomsRV.setHasFixedSize(true);
-        subsRV.setHasFixedSize(true);
-        publicRoomRV.setHasFixedSize(true);
+        x = 0;
+        y = 0;
+        z = 0;
+        list.clear();
+        listSubs.clear();
+        listall.clear();
 
-        list = new ArrayList<>();
-        listall = new ArrayList<>();
-        listSubs = new ArrayList<>();
-
-        myRoomsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        subsRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        publicRoomRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         bottomSheet = new BottomSheet();
         bottomSheet.setCancelable(false);
@@ -186,6 +194,7 @@ public class MySpaceActivity extends AppCompatActivity {
         if (x == length) {
 
             RoomsAdapter roomsAdapter = new RoomsAdapter(list);
+            roomsAdapter.notifyDataSetChanged();
             myRoomsRV.setAdapter(roomsAdapter);
 
         }
@@ -197,6 +206,7 @@ public class MySpaceActivity extends AppCompatActivity {
         if (y == length) {
 
             PublicRoomAdapter publicRoomAdapter = new PublicRoomAdapter(list);
+            publicRoomAdapter.notifyDataSetChanged();
             publicRoomRV.setAdapter(publicRoomAdapter);
 
         }
@@ -209,6 +219,7 @@ public class MySpaceActivity extends AppCompatActivity {
 
 
             RoomsAdapter roomsAdapter = new RoomsAdapter(list);
+            roomsAdapter.notifyDataSetChanged();
             subsRV.setAdapter(roomsAdapter);
 
         }

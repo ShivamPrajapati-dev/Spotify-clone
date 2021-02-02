@@ -1,6 +1,7 @@
 package com.example.songthrush;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
@@ -91,6 +93,17 @@ public class PublicRoomAdapter extends RecyclerView.Adapter<PublicRoomAdapter.Vi
                 });
             }
         });
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RoomSongActivity.class);
+                intent.putExtra("initials",String.valueOf(list.get(position).getName().charAt(0)));
+                intent.putExtra("color", list.get(position).getColor());
+                intent.putExtra("room_id",list.get(position).getName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -103,6 +116,7 @@ public class PublicRoomAdapter extends RecyclerView.Adapter<PublicRoomAdapter.Vi
         ImageView image;
         AppCompatButton join;
         ProgressBar progressBar;
+        ConstraintLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,6 +126,7 @@ public class PublicRoomAdapter extends RecyclerView.Adapter<PublicRoomAdapter.Vi
             initials = itemView.findViewById(R.id.initials);
             join = itemView.findViewById(R.id.join);
             progressBar = itemView.findViewById(R.id.progress);
+            layout = itemView.findViewById(R.id.layout);
         }
     }
 }

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MySpaceActivity"></activity>
+        <activity android:name=".RoomSongActivity"></activity>
+        <activity android:name=".MySpaceActivity" />
         <activity android:name=".ArtistsTracksActivity" />
         <activity android:name=".ArtistCatalogActivity" />
         <activity android:name=".NewReleaseActivity" />
